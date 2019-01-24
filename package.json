@@ -12,7 +12,8 @@
     "prisma-client-lib": "1.25.0"
   },
   "scripts": {
-    "start": "node src/index.js"
+    "deploy": "prisma deploy --env-file .env",
+    "start": "nodemon src/index.js"
   },
   "devDependencies": {
     "eslint": "^5.12.1",

@@ -1,17 +1,18 @@
 const { hash, compare } = require('bcrypt')
-const { sign } = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 
 const Mutation = {
-  signup: async (parent, { name, email, password }, context) => {
+  register: async (parent, { name, email, password }, context) => {
     const hashedPassword = await hash(password, 10)
     const user = await context.prisma.createUser({
       name,
       email,
       password: hashedPassword,
     })
+
+    context.request.session.userId = user.id
+
     return {
-      token: sign({ userId: user.id }, APP_SECRET),
       user,
     }
   },
@@ -24,8 +25,10 @@ const Mutation = {
     if (!passwordValid) {
       throw new Error('Invalid password')
     }
+
+    context.request.session.userId = user.id
+
     return {
-      token: sign({ userId: user.id }, APP_SECRET),
       user,
     }
   },

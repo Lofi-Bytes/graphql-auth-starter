@@ -1,6 +1,7 @@
 const { GraphQLServer } = require('graphql-yoga')
-import * as session from "express-session"
+const session = require('express-session')
 const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
 
 const { prisma } = require('./generated/prisma-client')
 const { resolvers } = require('./resolvers')
@@ -53,7 +54,7 @@ Use CORS
 ---------------------------------------- */
 const cors = {
   credentials: true,
-  origin: "http://localhost:3000"
+  origin: "http://localhost:4000"
 }
 
 
