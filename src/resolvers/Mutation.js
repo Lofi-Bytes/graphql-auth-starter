@@ -1,5 +1,5 @@
 const { hash, compare } = require('bcrypt')
-const { APP_SECRET, getUserId } = require('../utils')
+const { getUserId } = require('../utils')
 
 const Mutation = {
   register: async (parent, { name, email, password }, context) => {
